@@ -1,1 +1,1 @@
-export * from './lib/number';
+export { makeSearchableReducer } from './lib/reducer';

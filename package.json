@@ -18,7 +18,8 @@
     "fix:tslint": "tslint --fix --project .",
     "test": "run-s build test:*",
     "test:lint": "tslint --project . && prettier \"src/**/*.ts\" --list-different",
-    "test:unit": "nyc --silent ava",
+    "_test:unit": "nyc --silent ava",
+    "test:unit": "jest",
     "watch": "run-s clean build:main && run-p \"build:main -- -w\" \"test:unit -- --watch\"",
     "cov": "run-s build test:unit cov:html && opn coverage/index.html",
     "cov:html": "nyc report --reporter=html",
@@ -51,12 +52,15 @@
   "engines": {
     "node": ">=8.9"
   },
-  "dependencies": {},
+  "dependencies": {
+    "redux-actions": "^2.4.0"
+  },
   "devDependencies": {
-    "ava": "^1.0.0-beta.5.1",
+    "@types/redux-actions": "^2.3.0",
     "codecov": "^3.0.2",
     "cz-conventional-changelog": "^2.1.0",
     "gh-pages": "^1.2.0",
+    "jest": "^23.4.0",
     "npm-run-all": "^4.1.3",
     "nyc": "^12.0.2",
     "opn-cli": "^3.1.0",
@@ -68,15 +72,6 @@
     "tslint-immutable": "^4.5.4",
     "typedoc": "^0.11.1",
     "typescript": "^2.9.1"
-  },
-  "ava": {
-    "failFast": true,
-    "files": [
-      "build/main/**/*.spec.js"
-    ],
-    "sources": [
-      "build/main/**/*.js"
-    ]
   },
   "config": {
     "commitizen": {
