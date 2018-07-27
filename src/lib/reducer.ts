@@ -48,7 +48,7 @@ export function makeSearchableReducer(searchType: string) {
         ...state,
         inProgress: false,
         results,
-        meta
+        meta: meta || null
       }),
 
       [types.SEARCH_CLEAR]: () => INITIAL_STATE

@@ -70,7 +70,7 @@ export const endSearch = ({
   type: types.SEARCH_OK,
   payload: {
     searchType,
-    meta,
+    meta: meta || null,
     results
   }
 });
