@@ -80,10 +80,5 @@
   },
   "prettier": {
     "singleQuote": true
-  },
-  "nyc": {
-    "exclude": [
-      "**/*.spec.js"
-    ]
   }
 }
