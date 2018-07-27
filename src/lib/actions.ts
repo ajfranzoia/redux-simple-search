@@ -11,19 +11,19 @@ import { actionTypes as types } from './constants';
  * @return {Object}
  */
 export const runSearch = (
-  { searchType, query }: { searchType: SearchType, query: any },
+  { searchType, query }: { searchType: SearchType; query: any },
   options: { debounce?: boolean } = {}
 ) => ({
   type: types.SEARCH,
   payload: {
     searchType,
-    query,
+    query
   },
   meta: {
     debounce: options.debounce !== false && {
-      time: 300,
-    },
-  },
+      time: 300
+    }
+  }
 });
 
 /**
@@ -34,15 +34,19 @@ export const runSearch = (
  * @param meta
  * @return {Object}
  */
-export const startSearch = (
-  { searchType, query }: { searchType: SearchType, query: any },
-) => {
+export const startSearch = ({
+  searchType,
+  query
+}: {
+  searchType: SearchType;
+  query: any;
+}) => {
   return {
     type: types.SEARCH_PENDING,
     payload: {
       searchType,
-      query,
-    },
+      query
+    }
   };
 };
 
@@ -54,15 +58,21 @@ export const startSearch = (
  * @param results
  * @return {Object}
  */
-export const endSearch = (
-  { searchType, meta, results }: { searchType: SearchType, meta: any, results: any },
-) => ({
+export const endSearch = ({
+  searchType,
+  meta,
+  results
+}: {
+  searchType: SearchType;
+  meta: any;
+  results: any;
+}) => ({
   type: types.SEARCH_OK,
   payload: {
     searchType,
     meta,
-    results,
-  },
+    results
+  }
 });
 
 /**
@@ -72,14 +82,18 @@ export const endSearch = (
  * @param error
  * @return {Object}
  */
-export const errorSearch = (
-  { searchType, error }: { searchType: SearchType, error: Error },
-) => ({
+export const errorSearch = ({
+  searchType,
+  error
+}: {
+  searchType: SearchType;
+  error: Error;
+}) => ({
   type: types.SEARCH_REJECTED,
   payload: {
     searchType,
-    error,
-  },
+    error
+  }
 });
 
 /**
@@ -91,6 +105,6 @@ export const errorSearch = (
 export const clearSearch = (searchType: SearchType) => ({
   type: types.SEARCH_CLEAR,
   payload: {
-    searchType,
-  },
+    searchType
+  }
 });

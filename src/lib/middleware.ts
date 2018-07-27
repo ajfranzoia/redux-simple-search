@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
 import { endSearch, errorSearch, startSearch } from './actions';
 import { actionTypes as types } from './constants';
 
@@ -14,7 +14,7 @@ import { actionTypes as types } from './constants';
 const isStaleSearch = (search, getState) => {
   const latestQuery = getState().search[search.searchType].query;
 
-  return !_.isEqual(latestQuery, search.query);
+  return !isEqual(latestQuery, search.query);
 };
 
 /**
@@ -26,7 +26,7 @@ const isStaleSearch = (search, getState) => {
  * @return {function({dispatch?: *, getState?: *}): function(*): Function}
  */
 export default function makeMiddleware({ api }) {
-  return ({ dispatch, getState }) => next => async (action) => {
+  return ({ dispatch, getState }) => next => async action => {
     const { type, payload } = action;
 
     // Filter SEARCH action
@@ -36,14 +36,18 @@ export default function makeMiddleware({ api }) {
 
     const { searchType } = payload;
 
-    dispatch(startSearch({
-      ...payload,
-    }));
+    dispatch(
+      startSearch({
+        ...payload
+      })
+    );
 
     const apiFn = api[searchType];
 
     if (!apiFn) {
-      throw new Error(`No api searcher function found for search type "${searchType}"`);
+      throw new Error(
+        `No api searcher function found for search type "${searchType}"`
+      );
     }
 
     try {
@@ -53,20 +57,24 @@ export default function makeMiddleware({ api }) {
         return;
       }
 
-      dispatch(endSearch({
-        searchType,
-        meta,
-        results,
-      }));
+      dispatch(
+        endSearch({
+          searchType,
+          meta,
+          results
+        })
+      );
     } catch (error) {
       if (isStaleSearch(payload, getState)) {
         return;
       }
 
-      dispatch(errorSearch({
-        searchType,
-        error,
-      }));
+      dispatch(
+        errorSearch({
+          searchType,
+          error
+        })
+      );
     }
   };
 }

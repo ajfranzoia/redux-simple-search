@@ -41,5 +41,5 @@ export const actionTypes = {
    *   searchType: string,
    * }
    */
-  SEARCH_CLEAR: 'SEARCH_CLEAR',
+  SEARCH_CLEAR: 'SEARCH_CLEAR'
 };
